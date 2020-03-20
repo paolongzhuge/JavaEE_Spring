@@ -1,2 +1,2 @@
 # JavaEE_Spring
-学习JavaEE课程Spring框架的一些联系的项目
+学习JavaEE课程Spring框架的一些练习的项目
