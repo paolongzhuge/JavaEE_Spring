@@ -1,6 +1,9 @@
 package cn.a7e7.jdk;
 
+import org.springframework.stereotype.Repository;
+
 //目标类
+@Repository("userDao")
 public class UserDaoImpl implements UserDao {
 
 	@Override
