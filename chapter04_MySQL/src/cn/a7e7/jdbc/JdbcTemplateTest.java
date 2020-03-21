@@ -1,5 +1,7 @@
 package cn.a7e7.jdbc;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -58,7 +60,7 @@ public class JdbcTemplateTest {
 	}
 
 	@Test
-	public void updataAccountTest() {
+	public void finAccountById() {
 		// 加载配置文件
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		// 获取AccountDao实例
@@ -89,6 +91,31 @@ public class JdbcTemplateTest {
 			System.out.println("成功删除了" + num + "条数据！");
 		} else {
 			System.out.println("删除操作失败！");
+		}
+	}
+
+	@Test
+	public void findAccountTest() {
+		// 加载配置文件
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+		// 获取AccountDao实例
+		AccountDao accountDao = (AccountDao) applicationContext.getBean("accountDao");
+		//执行findAccount（）方法；
+		Account account =accountDao.findAccountById(2);
+		System.out.println(account);
+	}
+	
+
+	@Test
+	public void findAllAccountTest() {
+		// 加载配置文件
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+		// 获取AccountDao实例
+		AccountDao accountDao = (AccountDao) applicationContext.getBean("accountDao");
+		List<Account> accounts = accountDao.findAllAccount();
+		//循环输出集合中的对象
+		for (Account act : accounts) {
+			System.out.println(act);
 		}
 	}
 

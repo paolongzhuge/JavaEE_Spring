@@ -1,6 +1,10 @@
 package cn.a7e7.jdbc;
 
+import java.util.List;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 public class AccountDaoImpl implements AccountDao {
 
@@ -47,6 +51,29 @@ public class AccountDaoImpl implements AccountDao {
 		//执行删除操作，返回的是受SQL语句影响的条数
 		int num = this.jdbcTemplate.update(sql,id);
 		return num;
+	}
+
+	//通过id查询账户数据信息
+	@Override
+	public Account findAccountById(int id) {
+		//定义SQL语句
+		String sql ="select * from account where id=?";
+		//创建一个新的BeanPropertyRowMapper对象
+		RowMapper<Account> rowMapper = new BeanPropertyRowMapper<Account>(Account.class);
+		//将id绑定到SQL语句中，通过RowMapper返回一个Object类型到单行记录
+		return this.jdbcTemplate.queryForObject(sql,rowMapper,id);
+		
+	}
+
+	//查询所有账户信息
+	@Override
+	public List<Account> findAllAccount() {
+		// 定义SQL语句
+		String sqlString = "select * from account";
+		//创建一个新的BeanPropertyRowMapper对象
+		RowMapper<Account> rowMapper = new BeanPropertyRowMapper<Account>(Account.class);
+		//执行静态到SQL查询，通过RowMapper返回结果
+		return this.jdbcTemplate.query(sqlString, rowMapper);
 	}
 
 }
