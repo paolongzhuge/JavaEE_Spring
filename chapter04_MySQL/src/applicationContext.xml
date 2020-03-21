@@ -19,4 +19,9 @@
         	<!--默认必须使用数据源-->
         	<property name="dataSource" ref="dataSource"></property>
         </bean>
+        <!--定义id 为accountDao的Bean-->
+        <bean id="accountDao" class="cn.a7e7.jdbc.AccountDaoImpl">
+        <!--将jdbcTemplate注入到account实例中-->
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+        </bean>
 </beans>
