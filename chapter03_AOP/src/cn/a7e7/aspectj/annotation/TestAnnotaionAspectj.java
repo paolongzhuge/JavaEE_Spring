@@ -10,6 +10,7 @@ public class TestAnnotaionAspectj {
 
 	public static void main(String[] args) {
 		String xmlPath = "cn/a7e7/aspectj/annotation/applicationContext.xml";
+		@SuppressWarnings("resource")
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(xmlPath);
 		
 		//1 从Spring容器获取内容
