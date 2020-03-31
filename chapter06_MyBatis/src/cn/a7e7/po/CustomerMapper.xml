@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace表示命名空间-->
+<mapper namespace="cn.a7e7.po.Customer">
+
+
+	<!--根据客户编号获取客户信息-->
+	<select id="findCustomerById" parameterType="Integer" resultType="cn.a7e7.po.Customer">
+		<!-- #{id}相当于？ -->
+		select * from t_customer where id = #{id}
+	</select>
+</mapper>
