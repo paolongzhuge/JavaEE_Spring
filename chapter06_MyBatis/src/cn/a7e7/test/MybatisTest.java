@@ -82,7 +82,7 @@ public class MybatisTest {
 		customer.setUsername("aaa");
 		customer.setJobs("student1");
 		customer.setPhone("13361111111");
-		// 4.2执行SqlSession的插入方法，返回的是Sql语句影响的行数
+		// 4.2执行SqlSession的添加方法，返回的是Sql语句影响的行数
 		// 第一个参数是sql的id，第二个阐述传入给sql的占位符参数
 		int rows = sqlSession.insert("cn.a7e7.po.Customer.addCustomer", customer);
 		//4.3通过返回结果判断插入操作是否成功
@@ -101,7 +101,6 @@ public class MybatisTest {
 	
 	/**
 	 * 更新客户
-	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -113,10 +112,10 @@ public class MybatisTest {
 		SqlSessionFactory sqlsessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		// 3.通过sqlsessionFactory创建sessionFactory
 		SqlSession sqlSession = sqlsessionFactory.openSession();
-		// 4.sqlSession执行添加操作
+		// 4.sqlSession执行修改操作
 		// 4.1创建Customer对象，并向对象中添加数据
 		Customer customer = new Customer();
-		customer.setId(4);
+		customer.setId(7);
 		customer.setUsername("rose");
 		customer.setJobs("programmer");
 		customer.setPhone("13300000006");
@@ -131,6 +130,35 @@ public class MybatisTest {
 			}
 		//4.4提交事务——增删改都涉及到事务，需要提交事务
 		//如果不提交事务，虽然会输出插入成功的提示，但是实际上并不会插入成功。
+		sqlSession.commit();
+		
+		// 5.关闭SqlSession
+		sqlSession.close();
+	}
+	/**
+	 * 删除客户
+	 * @throws Exception
+	 */
+	@Test
+	public void deleteCustomerTest() throws Exception {
+		// 1.读取配置文件
+		String reourceString = "mybatis-config.xml";
+		InputStream inputStream = Resources.getResourceAsStream(reourceString);
+		// 2.根据配置文件构建SqlSessionFatcry
+		SqlSessionFactory sqlsessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		// 3.通过sqlsessionFactory创建sessionFactory
+		SqlSession sqlSession = sqlsessionFactory.openSession();
+		// 4.sqlSession执行删除操作
+		// 4.2执行SqlSession的删除方法，返回的是Sql语句影响的行数
+		// 第一个参数是sql的id，第二个阐述传入给sql的占位符参数
+		int rows = sqlSession.update("cn.a7e7.po.Customer.deleteCustomer", 7);
+		//4.3通过返回结果判断更新操作是否成功
+		if (rows>0) {
+			System.out.println("您成功删除了" + rows + "条数据！");
+			}else {
+				System.out.println("执行删除操作失败！！");
+			}
+		//4.4提交事务——增删改都涉及到事务，需要提交事务
 		sqlSession.commit();
 		
 		// 5.关闭SqlSession
