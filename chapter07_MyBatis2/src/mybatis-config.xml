@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+ 	<properties resource="db.properties"/>
+ 	
+ 	<settings>
+ 		<!--开启二级缓存，cacheEnabled默认的是关闭-->
+ 		<setting name="cacheEnabled" value="true"/>
+ 	</settings>
+ 	
+ 	<typeAliases>
+ 		<!--别名不区分大小写-->
+ 		<!--配置单个别名-->
+ 		<typeAlias alias="CUstomer" type="cn.a7e7.po.Customer"/> 
+ 		<!--配置扫描包形式,别名就是类名的首字母小写-->
+ 		<!-- <package name="cn.a7e7.po"/> -->
+ 	</typeAliases>
+ 	
+ 	
+	<!--1,配置环境，默认的环境id为mysql -->
+	<environments default="mysql">
+		<!--1.2配置id 为mysql的数据环境 -->
+		<environment id="mysql">
+			<!--使用JDBC事务管理 -->
+			<transactionManager type="JDBC" />
+			<!--数据库连接池 -->
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}" />
+				<property name="url"
+					value="${jdbc.url}" />
+				<property name="username" value="${jdbc.uername}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<!--2,配置Mapper的位置 -->
+	<mappers>
+		<!--可以配置多个Mapper -->
+		<mapper resource="cn/a7e7/po/CustomerMapper.xml" />
+		<mapper resource="cn/a7e7/po/UserMapper.xml" />
+	</mappers>
+</configuration>
