@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace表示命名空间 目前只要唯一即可 后面章节会讲到它的重要作用 -->
+<mapper namespace="cn.a7e7.mapper.CustomerMapper">
+	<!--<if>元素使用 -->
+	<select id="findCustomerByNameAndJobs"
+		parameterType="cn.a7e7.po.Customer" resultType="cn.a7e7.po.Customer">
+		select * from t_customer
+		<where>
+			<if test="username != null and username != '' ">
+				and username like concat('%',#{username},'%')
+			</if>
+			<if test="jobs != null and jobs != '' ">
+				and jobs=#{jobs}
+			</if>
+		</where>
+	</select>
+
+	<!-- <choose>(<when>,<otherwise>)元素使用 -->
+	<select id="findCustomerByNameOrJobs"
+		parameterType="cn.a7e7.po.Customer" resultType="cn.a7e7.po.Customer">
+		select *from t_customer
+		<trim prefix="where" prefixOverrides="and">
+			<choose>
+				<when test="username != null and username != ''">
+					and username like concat('%',#{username},'%')
+				</when>
+				<when test="jobs != null and jobs != ''">
+					and jobs=#{jobs}
+				</when>
+				<otherwise>
+					and phone is not null
+				</otherwise>
+			</choose>
+		</trim>
+	</select>
+
+	<!-- <set>元素 -->
+	<update id="updateCustomer" parameterType="cn.a7e7.po.Customer">
+		update t_customer
+		<set><!--会去掉多余的逗号 -->
+			<if test="username != null and username != '' ">
+				username=#{username},
+			</if>
+			<if test="jobs != null and jobs != ''">
+				jobs=#{jobs},
+			</if>
+			<if test="phone != null and jobs != '' ">
+				phone=#{phone},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<!--<foreach>元素使用 -->
+	<select id="findCustomerByIds" parameterType="List"
+		resultType="cn.a7e7.po.Customer">
+		select * from t_customer where id in
+		<foreach item="id" index="index" collection="list" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<!--<bind>元素的使用：根据客户名模糊查询客户信息 -->
+	<select id="findCustomerByName"
+		parameterType="cn.a7e7.po.Customer" resultType="cn.a7e7.po.Customer">
+		<!--_parameter.getUsername()y也可以直接写成传入的字段属性名，即username -->
+		<bind name="pattern_username"
+			value="'%'+_parameter.getUsername()+'%'" />
+		select * from t_customer where username like #{pattern_username}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
