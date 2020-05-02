@@ -1,15 +1,10 @@
 package cn.a7e7.test;
 
-import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
-
 import cn.a7e7.po.Customer;
 import cn.a7e7.utils.MybatisUtils;
 

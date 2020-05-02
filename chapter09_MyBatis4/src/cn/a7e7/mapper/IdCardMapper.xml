@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace表示命名空间 目前只要唯一即可 后面章节会讲到它的重要作用 -->
+<mapper namespace="cn.a7e7.mapper.IdCarMapper">
+	<!--根据ID查询证件信息 -->
+	<select id="findCodeById" parameterType="Integer"
+		resultType="IdCard">
+		select * from tb_idcard where id=#{id}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

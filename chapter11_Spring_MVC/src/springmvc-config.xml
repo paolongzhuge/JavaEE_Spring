@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+       
+       <!--配置处理器Handler，映射“/firstController”请求-->
+       <bean name="/firstController" class="cn.a7e7.controller.FirstController"/>
+       
+       <!--配置处理器映射器，将处理器Handler的name作为url进行查询  -->
+       <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+       
+       <!--处理器适配器，配置处理器中的HandleRequert()方法进行调用  -->
+      <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+       
+       <!--视图解析器  -->
+       <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
+</beans>

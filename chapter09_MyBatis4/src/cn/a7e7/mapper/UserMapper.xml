@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace表示命名空间 目前只要唯一即可 后面章节会讲到它的重要作用 -->
+<mapper namespace="cn.a7e7.mapper.UserMapper">
+	<!--一对多：查看某一用户及其关联的订单信息 注意：当关联查询出的列名相同时，需要使用别名区分 -->
+	<select id="findUserWithOrders" parameterType="Integer"
+		resultMap="UserWithOrdersResult">
+		select u.*,o.id as orders_id,o.number from tb_user u,tb_orders o 
+		where u.id=o.user_id and
+		u.id=#{id}
+	</select>
+	<resultMap type="User" id="UserWithOrdersResult">
+		<id property="id" column="id" />
+		<result property="username" column="usernanme" />
+		<result property="address" column="address" />
+		<!--一对多关联映射：collection ofType：表示属性集合中元素的类型，Listc<Orders>属性和Orders类 -->
+		<collection property="ordersList" ofType="Orders">
+			<id property="id" column="id" />
+			<result property="number" column="number" />
+		</collection>
+	</resultMap>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
